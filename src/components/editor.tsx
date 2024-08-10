@@ -24,7 +24,7 @@ export default function IDE() {
   }, [selectedLanguage]);
   return (
     <form action="#" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-3 min-w-[62vw] h-full justify-center items-center  ">
+      <div className="flex flex-col gap-4 min-w-[62vw] h-full justify-center items-center  ">
         <div className="flex flex-col w-full">
           <h1 className="text-white text-5xl mb-5">Title</h1>
           <p className="text-white text-base w-[60vw] mb-1">
@@ -55,6 +55,7 @@ export default function IDE() {
             </h1>
           </div>
           <Select
+            disabled={selectedTab == "logs" ? true : false}
             onValueChange={(value) => {
               setSelectedLanguage(value);
             }}
@@ -93,6 +94,9 @@ export default function IDE() {
               <div className="rounded-full h-3 w-3 bg-[#FF5F57]" />
               <div className="rounded-full h-3 w-3 bg-[#FEBC2E]" />
               <div className="rounded-full h-3 w-3 bg-[#27C43F]" />
+            </div>
+            <div className="w-full h-full p-3">
+              <textarea className="w-full h-full bg-transparent text-white outline-none resize-none	"></textarea>
             </div>
           </div>
         )}
