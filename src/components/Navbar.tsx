@@ -13,7 +13,7 @@ const Navbar = () => {
       </div>
       <div className="flex justify-center items-center gap-5">
         <Button className="dark"> Create </Button>
-        <FaUser className=" text-white  text-2xl " />
+        {/* <FaUser className=" text-white  text-2xl " /> */}
       </div>
     </div>
   );

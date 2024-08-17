@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex flex-col w-full h-full">
           <Navbar />
-          <div className="h-fit w-full p-5 bg-[#131415]">{children}</div>
+          <div className="h-fit w-full p-5  bg-[#131415]">{children}</div>
           <Footer />
         </div>
       </body>

@@ -12,63 +12,73 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
-export default function IDE() {
+export default function IDE({}) {
+  const [state, setState] = useState({
+    code: "",
+    logs: "",
+    selectedLanguage: "html",
+    fileName: "",
+    selectedTab: "ide",
+    title: "",
+    description: "",
+  });
+
+  const updateState = (key: string, value: string) => {
+    setState((prev) => ({ ...prev, [key]: value }));
+  };
+
   const handleSubmit = async () => {};
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("html");
-  const [fileName, setFileName] = useState<string>("index.html");
-  const [selectedTab, setSelectedTab] = useState<string>("ide");
 
-  useEffect(() => {
-    console.log(selectedLanguage);
-  }, [selectedLanguage]);
   return (
     <form action="#" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-4 min-w-[62vw] h-full justify-center items-center  ">
+      <div className="flex flex-col gap-4 w-[90vw] sm:w-[62vw] h-full justify-center items-center">
         <div className="flex flex-col w-full">
-          <h1 className="text-white text-5xl mb-5">Title</h1>
-          <p className="text-white text-base w-[60vw] mb-1">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Laboriosam, quam cupiditate architecto molestiae pariatur nulla sint
-            voluptates, tempora quibusdam modi asperiores perferendis sapiente
-            nisi non provident rem impedit reiciendis sed?
-          </p>
+          <Input
+            className="text-white text-5xl mb-5 outline-none bg-transparent border-b border-t-0 border-x-0 py-10 px-0 rounded-none border-white/10 placeholder:text-white/10"
+            placeholder="Title"
+            value={state.title}
+            onChange={(e) => updateState("title", e.target.value)}
+          />
+          <textarea
+            contentEditable
+            suppressContentEditableWarning={true}
+            className="text-white text-base w-[90vw] sm:w-full h-fit resize-none mb-1 outline-none bg-transparent border-y-0 border-x-0 py-2 px-0 rounded-none border-white/10 placeholder:text-white/10"
+            placeholder="Description"
+            value={state.description}
+            onChange={(e) => updateState("description", e.target.value)}
+          />
         </div>
-        <div className=" flex self-start justify-between items-center w-full text-white rounded-lg  h-fit border border-white/10 p-2">
+        <div className="flex self-start justify-between items-center w-full text-white rounded-lg h-fit border border-white/10 p-2">
           <div className="flex gap-3">
+            <Input
+              value={state.fileName}
+              className="text-sm bg-[#1E1E1E] p-3 px-4 border-none rounded-lg outline-none"
+              onChange={(e) => updateState("fileName", e.target.value)}
+              onClick={() => updateState("selectedTab", "ide")}
+              placeholder="file name"
+            />
             <h1
-              className="text-sm bg-[#1E1E1E] p-3 px-4 rounded-lg outline-none "
-              contentEditable
-              onInput={(e) => {
-                const element = e.target as HTMLElement;
-                setFileName(element.innerText);
-              }}
-              onClick={() => setSelectedTab("ide")}
-            >
-              index.html
-            </h1>
-            <h1
-              className="text-sm bg-[#1E1E1E] p-3 px-4 rounded-lg outline-none "
-              onClick={() => setSelectedTab("logs")}
+              className="text-sm bg-[#1E1E1E] p-3 px-4 rounded-lg outline-none"
+              onClick={() => updateState("selectedTab", "logs")}
             >
               logs
             </h1>
           </div>
           <Select
-            disabled={selectedTab == "logs" ? true : false}
-            onValueChange={(value) => {
-              setSelectedLanguage(value);
-            }}
+            disabled={state.selectedTab === "logs"}
+            onValueChange={(value) => updateState("selectedLanguage", value)}
           >
-            <SelectTrigger className="w-[180px] dark bg-primary">
-              <SelectValue placeholder={selectedLanguage} />
+            <SelectTrigger className="w-[100px] lg:w-[180px] dark bg-primary">
+              <SelectValue placeholder={state.selectedLanguage} />
             </SelectTrigger>
             <SelectContent className="dark bg-background">
               {supportedLanguages.map((language) => (
                 <SelectItem
                   value={language.name}
                   key={language.id}
-                  className="dark bg-background "
+                  className="dark bg-background"
                 >
                   {language.name}
                 </SelectItem>
@@ -76,30 +86,45 @@ export default function IDE() {
             </SelectContent>
           </Select>
         </div>
-        {selectedTab == "ide" ? (
-          <div className="bg-[#1E1E1E] rounded-lg w-[62vw] h-[75vh] border border-white/10 px-2 py-4">
+        {state.selectedTab === "ide" ? (
+          <div className="bg-[#1E1E1E] rounded-lg w-[90vw] sm:w-[62vw] h-[90vh] border border-white/10 px-2 py-4">
             <Editor
-              path="index.js"
-              height="70vh"
-              width="60vw"
+              path={state.fileName}
               defaultLanguage="html"
               defaultValue={editorPlaceholder}
-              language={selectedLanguage}
+              language={state.selectedLanguage}
               theme="vs-dark"
+              className="w-[60vw] h-[70vh]"
+              options={{
+                readOnly: false,
+                minimap: {
+                  enabled: false,
+                },
+              }}
+              value={state.code}
+              onChange={(value) => updateState("code", value || "")}
             />
           </div>
         ) : (
-          <div className="bg-[#1E1E1E] rounded-lg flex flex-col h-[75vh] w-[62vw] border border-white/10 ">
-            <div className="w-full flex justify-start p-3 items-center gap-1.5 bg-[#282828] h-8 rounded-t-lg ">
+          <div className="bg-[#1E1E1E] rounded-lg flex flex-col h-[75vh] w-[90vw] sm:w-[62vw] border border-white/10">
+            <div className="w-full flex justify-start p-3 items-center gap-1.5 bg-[#282828] h-8 rounded-t-lg">
               <div className="rounded-full h-3 w-3 bg-[#FF5F57]" />
               <div className="rounded-full h-3 w-3 bg-[#FEBC2E]" />
               <div className="rounded-full h-3 w-3 bg-[#27C43F]" />
             </div>
             <div className="w-full h-full p-3">
-              <textarea className="w-full h-full bg-transparent text-white outline-none resize-none	"></textarea>
+              <textarea
+                className="w-full h-full bg-transparent text-white outline-none resize-none"
+                placeholder="Type any logs/output here"
+                value={state.logs}
+                onChange={(e) => updateState("logs", e.target.value)}
+              />
             </div>
           </div>
         )}
+      </div>
+      <div className="w-full flex justify-center items-center mt-10">
+        <Button className="">Submit</Button>
       </div>
     </form>
   );
