@@ -23,6 +23,7 @@ export default function IDE({}) {
     selectedTab: "ide",
     title: "",
     description: "",
+    editor: false,
   });
 
   const updateState = (key: string, value: string) => {

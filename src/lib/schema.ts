@@ -6,4 +6,5 @@ export interface codeState {
   selectedTab: string;
   title: string;
   description: string;
+  edtior: boolean;
 }
