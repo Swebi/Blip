@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 import { Toaster } from "@/components/ui/toaster";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 export const metadata: Metadata = {
   title: "Blip",
@@ -19,13 +21,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-col w-full h-full">
-          <Toaster />
+        <ClerkProvider
+          appearance={{
+            baseTheme: dark,
+          }}
+        >
+          <div className="flex flex-col w-full h-full">
+            <Toaster />
 
-          <Navbar />
-          <div className="h-fit w-full p-5  bg-[#131415]">{children}</div>
-          <Footer />
-        </div>
+            <Navbar />
+            <div className="h-fit w-full p-5  bg-[#131415]">{children}</div>
+            <Footer />
+          </div>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -161,6 +161,13 @@ export default function IDE({ propState }: { propState: codeState }) {
           </div>
         )}
       </div>
+      <div className="flex w-full mt-4 justify-between items-start">
+        <h1 className="text-white/10 text-sm">Created by </h1>
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-white/10 text-sm">Created On </h1>
+          <h1 className="text-white/10 text-sm">Modified On </h1>
+        </div>
+      </div>
       <div className="w-full flex justify-center items-center mt-10">
         <Button className="" disabled={state.viewer}>
           Submit
