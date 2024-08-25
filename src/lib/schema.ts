@@ -3,8 +3,18 @@ export interface codeState {
   logs: string;
   selectedLanguage: string;
   fileName: string;
-  selectedTab: string;
+  selectedTab: boolean;
   title: string;
   description: string;
-  editor: boolean;
+  viewer: boolean;
+}
+
+export interface snippet {
+  slug: string;
+  code: string;
+  logs: string;
+  language: string;
+  fileName: string;
+  title: string;
+  description: string;
 }

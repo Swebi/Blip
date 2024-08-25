@@ -3,6 +3,7 @@ import { IoTerminalOutline } from "react-icons/io5";
 import { Button } from "./ui/button";
 import { FaUserCircle } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -12,7 +13,9 @@ const Navbar = () => {
         <h1 className="text-3xl text-white">Blip</h1>
       </div>
       <div className="flex justify-center items-center gap-5">
-        <Button className="dark"> Create </Button>
+        <Link href="/create">
+          <Button className="dark"> Create </Button>
+        </Link>
         {/* <FaUser className=" text-white  text-2xl " /> */}
       </div>
     </div>

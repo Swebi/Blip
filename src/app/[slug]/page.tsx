@@ -3,16 +3,16 @@ import { editorPlaceholder } from "@/config/data";
 import { codeState } from "@/lib/schema";
 import React from "react";
 
-const Create = () => {
+const Slug = () => {
   const propState: codeState = {
     code: editorPlaceholder,
-    logs: "",
+    logs: "logs",
     selectedLanguage: "html",
-    fileName: "",
+    fileName: "logs",
     selectedTab: true,
-    title: "",
-    description: "",
-    viewer: false,
+    title: "logs",
+    description: "logs",
+    viewer: true,
   };
 
   return (
@@ -22,4 +22,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Slug;
