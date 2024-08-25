@@ -1,19 +1,30 @@
 "use client";
 
-import { editorPlaceholder } from "@/config/data";
-import { supportedLanguages } from "@/config/languages";
 import Editor from "@monaco-editor/react";
 import { FormEvent, useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { generateSlug } from "@/lib/slug";
 import { createSnippet } from "@/actions/actions";
 import Terminal from "./Terminal";
 import LanguageSelect from "./LanguageSelect";
 import { codeState } from "@/lib/schema";
 import { TbSwitchHorizontal } from "react-icons/tb";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { nanoid } from "nanoid";
 
 export default function IDE({ propState }: { propState: codeState }) {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  let slug = nanoid().substring(1, 6);
+
+  useEffect(() => {
+    slug = nanoid().substring(1, 6);
+  }, []);
+
   const [state, setState] = useState({
     code: propState.code,
     logs: propState.logs,
@@ -31,17 +42,59 @@ export default function IDE({ propState }: { propState: codeState }) {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault(); // Prevent default form submission
-    const slug = generateSlug;
-    const data = {
-      slug: slug,
-      title: state.title,
-      description: state.description,
-      code: state.code,
-      logs: state.logs,
-      fileName: state.fileName,
-      language: state.selectedLanguage,
-    };
-    await createSnippet(data);
+    if (!state.viewer) {
+      const data = {
+        slug: slug,
+        title: state.title,
+        description: state.description,
+        code: state.code,
+        logs: state.logs,
+        fileName: state.fileName,
+        language: state.selectedLanguage,
+      };
+      const response = await createSnippet(data);
+      if (response.success) {
+        toast({
+          title: "Succesfully created snippet",
+          description: `Your code is ${response.slug}`,
+          className: "dark text-white border-white/10",
+          action: (
+            <Link href={`/${response.slug}`}>
+              <ToastAction
+                className="border-white/10"
+                altText="Copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(response.slug || "");
+                }}
+              >
+                Copy
+              </ToastAction>
+            </Link>
+          ),
+        });
+        router.push(`/${response.slug}`);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Could not create snippet",
+          action: (
+            <ToastAction
+              altText="Try again"
+              onClick={() => {
+                router.push(`/create`);
+              }}
+            >
+              Try again
+            </ToastAction>
+          ),
+        });
+      }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "You do not have edit permissions for this snippet",
+      });
+    }
   };
 
   return (

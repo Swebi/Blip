@@ -13,18 +13,22 @@ export async function createSnippet(data: snippet) {
   const language = data.language as string;
   const fileName = data.fileName as string;
 
-  await prisma.snippet.create({
-    data: {
-      slug,
-      title,
-      description,
-      code,
-      logs,
-      fileName,
-      language,
-    },
-  });
-
-  //   revalidatePath("/posts");
+  try {
+    await prisma.snippet.create({
+      data: {
+        slug,
+        title,
+        description,
+        code,
+        logs,
+        fileName,
+        language,
+      },
+    });
+    revalidatePath("/create");
+    return { success: true, slug };
+  } catch (error) {
+    console.log(error);
+    return { success: false, error: "Failed to create snippet" };
+  }
 }
-
