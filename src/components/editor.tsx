@@ -15,7 +15,7 @@ import { TbSwitchHorizontal } from "react-icons/tb";
 
 export default function IDE({ propState }: { propState: codeState }) {
   const [state, setState] = useState({
-    code: editorPlaceholder,
+    code: propState.code,
     logs: propState.logs,
     selectedLanguage: propState.selectedLanguage,
     fileName: propState.fileName,
@@ -73,13 +73,13 @@ export default function IDE({ propState }: { propState: codeState }) {
               disabled={state.viewer}
             />
             <h1
-              className="text-sm bg-[#1E1E1E] p-3 px-4 rounded-lg outline-none"
+              className="text-sm bg-[#1E1E1E] p-3 px-4 rounded-lg outline-none cursor-pointer"
               onClick={() => updateState("selectedTab", false)}
             >
               logs
             </h1>
             <TbSwitchHorizontal
-              className="text-4xl"
+              className="text-4xl cursor-pointer"
               onClick={() => updateState("selectedTab", !state.selectedTab)}
             />
           </div>
@@ -89,8 +89,6 @@ export default function IDE({ propState }: { propState: codeState }) {
           <div className="bg-[#1E1E1E] rounded-lg w-[90vw] sm:w-[62vw] h-[90vh] border border-white/10 px-2 py-4">
             <Editor
               path={state.fileName}
-              defaultLanguage="html"
-              defaultValue={editorPlaceholder}
               language={state.selectedLanguage}
               theme="vs-dark"
               className="w-[60vw] h-[70vh]"

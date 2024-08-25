@@ -1,17 +1,30 @@
-import IDE from "@/components/editor";
+import IDE from "@/components/Editor";
 import { editorPlaceholder } from "@/config/data";
 import { codeState } from "@/lib/schema";
-import React from "react";
+import prisma from "@/lib/db";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const Slug = () => {
+export default async function Slug({ params }: { params: { slug: string } }) {
+  const snippet = await prisma.snippet.findUnique({
+    where: {
+      slug: params.slug,
+    },
+  });
+
+  if (!snippet) {
+    notFound();
+  }
+
+
   const propState: codeState = {
-    code: editorPlaceholder,
-    logs: "logs",
-    selectedLanguage: "html",
-    fileName: "logs",
+    code: snippet.code,
+    logs: snippet.logs,
+    selectedLanguage: snippet.language,
+    fileName: snippet.fileName,
     selectedTab: true,
-    title: "logs",
-    description: "logs",
+    title: snippet.title,
+    description: snippet.description,
     viewer: true,
   };
 
@@ -20,6 +33,4 @@ const Slug = () => {
       <IDE propState={propState} />
     </div>
   );
-};
-
-export default Slug;
+}

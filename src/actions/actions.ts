@@ -27,3 +27,4 @@ export async function createSnippet(data: snippet) {
 
   //   revalidatePath("/posts");
 }
+

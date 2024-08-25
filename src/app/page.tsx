@@ -1,4 +1,4 @@
-import IDE from "@/components/editor";
+import IDE from "@/components/Editor";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

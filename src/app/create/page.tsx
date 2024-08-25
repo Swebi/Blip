@@ -1,4 +1,4 @@
-import IDE from "@/components/editor";
+import IDE from "@/components/Editor";
 import { editorPlaceholder } from "@/config/data";
 import { codeState } from "@/lib/schema";
 import React from "react";
