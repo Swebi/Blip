@@ -1,9 +1,12 @@
+import SignInLoader from "@/components/signInLoader";
 import { SignIn } from "@clerk/nextjs";
-
+import { Suspense } from "react";
 export default function Page() {
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center   bg-[#131415]">
-      <SignIn />
+    <div className="w-full h-[75vh] flex flex-col justify-center items-center  ">
+      <Suspense fallback={<SignInLoader />}>
+        <SignIn />
+      </Suspense>
     </div>
   );
 }

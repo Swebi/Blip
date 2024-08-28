@@ -7,15 +7,16 @@ import { Button } from "./ui/button";
 import { createSnippet } from "@/actions/actions";
 import Terminal from "./Terminal";
 import LanguageSelect from "./LanguageSelect";
-import { codeState } from "@/lib/schema";
+import { snippet, snippetState } from "@/lib/schema";
 import { TbSwitchHorizontal } from "react-icons/tb";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { nanoid } from "nanoid";
+import { useAuth } from "@clerk/nextjs";
 
-export default function IDE({ propState }: { propState: codeState }) {
+export default function IDE({ propState }: { propState: snippetState }) {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -34,6 +35,9 @@ export default function IDE({ propState }: { propState: codeState }) {
     title: propState.title,
     description: propState.description,
     viewer: propState.viewer,
+    creator: propState.creator,
+    createdAt: propState.createdAt,
+    updatedAt: propState.updatedAt,
   });
 
   const updateState = (key: string, value: string | boolean) => {
@@ -116,7 +120,7 @@ export default function IDE({ propState }: { propState: codeState }) {
             onChange={(e) => updateState("description", e.target.value)}
           />
         </div>
-        <div className="flex self-start justify-between items-center w-full text-white rounded-lg h-fit border border-white/10 p-2">
+        <div className="flex self-start justify-between items-center w-full text-white rounded-lg h-fit border border-white/10 p-2 bg-[#131415]">
           <div className="flex gap-3 items-center">
             <Input
               value={state.fileName}
@@ -139,7 +143,7 @@ export default function IDE({ propState }: { propState: codeState }) {
           <LanguageSelect state={state} updateState={updateState} />
         </div>
         {state.selectedTab === true ? (
-          <div className="bg-[#1E1E1E] rounded-lg w-[90vw] sm:w-[62vw] h-[90vh] border border-white/10 px-2 py-4">
+          <div className="bg-[#1E1E1E] rounded-lg w-[90vw] sm:w-[62vw] h-[80vh] border border-white/10 px-2 py-4">
             <Editor
               path={state.fileName}
               language={state.selectedLanguage}
@@ -161,13 +165,23 @@ export default function IDE({ propState }: { propState: codeState }) {
           </div>
         )}
       </div>
-      <div className="flex w-full mt-4 justify-between items-start">
-        <h1 className="text-white/10 text-sm">Created by </h1>
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="text-white/10 text-sm">Created On </h1>
-          <h1 className="text-white/10 text-sm">Modified On </h1>
+      {state.viewer ? (
+        <div className="flex w-full mt-4 justify-between items-start">
+          <h1 className="text-white/20 text-sm">
+            Created by {propState.creator}
+          </h1>
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="text-white/20 text-sm">
+              Created On {state.createdAt?.toLocaleString()}
+            </h1>
+            <h1 className="text-white/20 text-sm">
+              Modified On {state.updatedAt?.toLocaleString()}
+            </h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
       <div className="w-full flex justify-center items-center mt-10">
         <Button className="" disabled={state.viewer}>
           Submit

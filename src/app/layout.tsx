@@ -26,11 +26,13 @@ export default function RootLayout({
             baseTheme: dark,
           }}
         >
-          <div className="flex flex-col w-full h-full">
+          <div className="flex flex-col w-full h-full ">
             <Toaster />
 
             <Navbar />
-            <div className="h-fit w-full p-5  bg-[#131415]">{children}</div>
+            <div className="h-fit flex flex-col w-full p-5  bg-[#]">
+              {children}
+            </div>
             <Footer />
           </div>
         </ClerkProvider>

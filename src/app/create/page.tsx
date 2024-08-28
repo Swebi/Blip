@@ -1,10 +1,10 @@
 import IDE from "@/components/Editor";
 import { editorPlaceholder } from "@/config/data";
-import { codeState } from "@/lib/schema";
+import { snippetState } from "@/lib/schema";
 import React from "react";
 
 const Create = () => {
-  const propState: codeState = {
+  const propState: snippetState = {
     code: editorPlaceholder,
     logs: "",
     selectedLanguage: "html",
@@ -16,7 +16,7 @@ const Create = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center pt-5 pb-10  bg-[#131415]">
+    <div className="w-full h-full flex flex-col justify-center items-center pt-5 pb-10  bg-transparent">
       <IDE propState={propState} />
     </div>
   );

@@ -1,11 +1,11 @@
-import { codeState } from "@/lib/schema";
+import { snippetState } from "@/lib/schema";
 import React from "react";
 
 const Terminal = ({
   state,
   updateState,
 }: {
-  state: codeState;
+  state: snippetState;
   updateState: (key: string, value: string) => void;
 }) => {
   return (

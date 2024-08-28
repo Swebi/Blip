@@ -1,4 +1,4 @@
-export interface codeState {
+export interface snippetState {
   code: string;
   logs: string;
   selectedLanguage: string;
@@ -7,6 +7,9 @@ export interface codeState {
   title: string;
   description: string;
   viewer: boolean;
+  creator?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface snippet {

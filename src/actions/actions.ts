@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { snippet } from "@/lib/schema";
+import { auth } from "@clerk/nextjs/server";
 
 export async function createSnippet(data: snippet) {
   const title = data.title as string;
@@ -12,6 +13,8 @@ export async function createSnippet(data: snippet) {
   const logs = data.logs as string;
   const language = data.language as string;
   const fileName = data.fileName as string;
+
+  const { userId } = auth();
 
   try {
     await prisma.snippet.create({
@@ -23,6 +26,7 @@ export async function createSnippet(data: snippet) {
         logs,
         fileName,
         language,
+        creatorId: userId,
       },
     });
     revalidatePath("/create");

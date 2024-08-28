@@ -1,6 +1,6 @@
 import IDE from "@/components/Editor";
 import { editorPlaceholder } from "@/config/data";
-import { codeState } from "@/lib/schema";
+import { snippetState } from "@/lib/schema";
 import prisma from "@/lib/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,14 +10,24 @@ export default async function Slug({ params }: { params: { slug: string } }) {
     where: {
       slug: params.slug,
     },
+    include: {
+      creator: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 
   if (!snippet) {
     notFound();
   }
 
+  const creator = snippet.creator ? snippet.creator.name : "Anonymous";
+  const createdAt = snippet.createdAt.toLocaleDateString();
+  const updatedAt = snippet.updatedAt.toLocaleDateString();
 
-  const propState: codeState = {
+  const propState: snippetState = {
     code: snippet.code,
     logs: snippet.logs,
     selectedLanguage: snippet.language,
@@ -26,6 +36,9 @@ export default async function Slug({ params }: { params: { slug: string } }) {
     title: snippet.title,
     description: snippet.description,
     viewer: true,
+    creator: creator,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
   };
 
   return (

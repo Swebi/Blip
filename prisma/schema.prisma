@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       String    @id @default(cuid())
+  clerkId  String    @unique
+  name     String
+  snippets Snippet[]
+}
+
 model Snippet {
   id          String   @id @default(cuid())
   slug        String   @unique
@@ -21,4 +28,6 @@ model Snippet {
   fileName    String
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
+  creator     User?    @relation(fields: [creatorId], references: [clerkId], onDelete: Cascade)
+  creatorId   String?
 }

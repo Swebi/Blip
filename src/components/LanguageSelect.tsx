@@ -6,14 +6,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { codeState } from "@/lib/schema";
+import { snippetState } from "@/lib/schema";
 import { supportedLanguages } from "@/config/languages";
 
 const LanguageSelect = ({
   state,
   updateState,
 }: {
-  state: codeState;
+  state: snippetState;
   updateState: (key: string, value: string) => void;
 }) => {
   return (
