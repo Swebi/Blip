@@ -62,15 +62,15 @@ const HomeSnippet = ({
             <h1
               className={`overflow-y-scroll  hiddenScroll h-[40px] ${
                 !title
-                  ? "text-white/10 text-3xl mt-2"
+                  ? "text-white/30 text-3xl mt-2"
                   : "text-3xl mt-2 text-white"
               }`}
             >
               {title ? title : "No Title"}
             </h1>
             <h1
-              className={`overflow-y-scroll hiddenScroll h-[55px] border${
-                !description ? "text-white/10 text-lg" : "text-lg text-white"
+              className={`overflow-y-scroll hiddenScroll h-[55px]  ${
+                !description ? "text-white/30 text-lg" : "text-lg text-white"
               }`}
             >
               {description ? description : "No Description"}
@@ -78,10 +78,10 @@ const HomeSnippet = ({
           </div>
         </Link>
         <div className="flex flex-col items-end gap-2">
-          <h1 className="text-white/10">{createdAt}</h1>
+          <h1 className="text-white/30">{createdAt}</h1>
           <Dialog>
             <DialogTrigger>
-              <MdDelete className="text-4xl text-white" />
+              <MdDelete className="text-3xl text-white" />
             </DialogTrigger>
             <DialogContent className="dark border-none">
               <DialogHeader className="dark">

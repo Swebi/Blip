@@ -106,14 +106,14 @@ export default function IDE({ propState }: { propState: snippetState }) {
       <div className="flex flex-col gap-4 w-[90vw] sm:w-[62vw] h-full justify-center items-center">
         <div className="flex flex-col w-full">
           <Input
-            className="text-white text-5xl mb-5 outline-none bg-transparent border-b border-t-0 border-x-0 py-10 px-0 rounded-none border-white/10 placeholder:text-white/10"
+            className="text-white text-5xl mb-5 outline-none bg-transparent border-b border-t-0 border-x-0 py-10 px-0 rounded-none border-white/10 placeholder:text-white/30"
             placeholder="Title"
             value={state.title}
             onChange={(e) => updateState("title", e.target.value)}
             disabled={state.viewer}
           />
           <textarea
-            className="text-white text-base w-[90vw] sm:w-full h-fit resize-none mb-1 outline-none bg-transparent border-y-0 border-x-0 py-2 px-0 rounded-none border-white/10 placeholder:text-white/10"
+            className="text-white text-base w-[90vw] sm:w-full h-fit resize-none mb-1 outline-none bg-transparent border-y-0 border-x-0 py-2 px-0 rounded-none border-white/10 placeholder:text-white/30"
             placeholder="Description"
             value={state.description}
             disabled={state.viewer}

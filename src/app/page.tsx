@@ -4,8 +4,14 @@ import hero from "@/assets/hero.png";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import EncryptButton from "@/components/EncryptButton";
 import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 const Home = () => {
+  const { userId } = auth();
+  if (userId) {
+    redirect("/dashboard");
+  }
   return (
     <div className="w-full h-full flex flex-col justify-start items-center pt-0 pb-0  bg-[#]">
       <ContainerScroll
