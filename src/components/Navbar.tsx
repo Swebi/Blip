@@ -22,7 +22,7 @@ const Navbar = async () => {
         {user ? (
           <UserButton />
         ) : (
-          <Link href="/sign-in">
+          <Link href="/sign-in" className="h-5 w-5">
             <FaUser className="text-2xl text-white" />
           </Link>
         )}

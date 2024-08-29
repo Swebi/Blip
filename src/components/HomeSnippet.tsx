@@ -14,7 +14,7 @@ const HomeSnippet = ({
   language: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2 w-[600px] max-h-[400px] p-5 border bg-[#131415] rounded-2xl border-white/10">
+    <div className="flex flex-col gap-2 w-[600px] max-h-[400px] p-5 pb-6 border bg-[#131415] rounded-2xl border-white/10">
       <SyntaxHighlighter
         language={language}
         style={vs2015}

@@ -3,10 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-const inter = Inter({ subsets: ["latin"] });
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Blip",
@@ -20,21 +21,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
         <ClerkProvider
           appearance={{
             baseTheme: dark,
           }}
         >
-          <div className="flex flex-col w-full h-full ">
-            <Toaster />
+          <Toaster />
+          <Navbar />
 
-            <Navbar />
-            <div className="h-fit flex flex-col w-full p-5  bg-[#]">
-              {children}
-            </div>
-            <Footer />
+          <div className="flex flex-col min-h-screen justify-center items-center  p-5">
+            {children}
           </div>
+
+          <Footer />
         </ClerkProvider>
       </body>
     </html>

@@ -3,7 +3,7 @@ import { SignIn } from "@clerk/nextjs";
 import { Suspense } from "react";
 export default function Page() {
   return (
-    <div className="w-full h-[75vh] flex flex-col justify-center items-center  ">
+    <div className="w-full h-full  flex flex-col justify-center items-center  ">
       <Suspense fallback={<SignInLoader />}>
         <SignIn />
       </Suspense>
