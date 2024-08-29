@@ -35,13 +35,17 @@ const HomeSnippet = ({
   createdAt: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2 w-[400px] md:w-[600px] max-h-[400px] h-fit p-5 pb-6 border bg-[#131415] rounded-2xl border-white/10">
-      <div className="bg-[#1E1E1E] rounded-lg p-3">
+    <div className="flex flex-col gap-2 w-[400px] md:w-[600px] max-h-[550px]  h-fit p-5 pb-6 border bg-[#131415] rounded-2xl border-white/10">
+      <div className="bg-[#1E1E1E] rounded-lg p-3 ">
         <Link href={`/${slug}`} key={id}>
           <SyntaxHighlighter
             language={language}
             style={vs2015}
-            customStyle={{ lineHeight: "1.1", fontSize: "10px" }}
+            customStyle={{
+              lineHeight: "1.1",
+              fontSize: "10px",
+              height: "200px",
+            }}
             className="hiddenScroll "
           >
             {code}
@@ -56,7 +60,7 @@ const HomeSnippet = ({
               {language ? language.toUpperCase() : "plaintext"}
             </p>
             <h1
-              className={`${
+              className={`overflow-y-scroll  hiddenScroll h-[40px] ${
                 !title
                   ? "text-white/10 text-3xl mt-2"
                   : "text-3xl mt-2 text-white"
@@ -65,7 +69,7 @@ const HomeSnippet = ({
               {title ? title : "No Title"}
             </h1>
             <h1
-              className={`${
+              className={`overflow-y-scroll hiddenScroll h-[55px] border${
                 !description ? "text-white/10 text-lg" : "text-lg text-white"
               }`}
             >

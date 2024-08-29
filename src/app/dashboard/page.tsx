@@ -15,6 +15,9 @@ const Dashboard = async () => {
     where: {
       creatorId: userId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   if (!user) {
