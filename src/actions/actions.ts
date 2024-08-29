@@ -29,7 +29,7 @@ export async function createSnippet(data: snippet) {
         creatorId: userId,
       },
     });
-    revalidatePath("/create");
+    revalidatePath("/dashboard");
     return { success: true, slug };
   } catch (error) {
     console.log(error);
