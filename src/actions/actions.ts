@@ -36,3 +36,30 @@ export async function createSnippet(data: snippet) {
     return { success: false, error: "Failed to create snippet" };
   }
 }
+
+export async function deleteSnippet({
+  id,
+  creatorID,
+}: {
+  id: string;
+  creatorID: string;
+}) {
+  const { userId } = auth();
+
+  if (userId === creatorID) {
+    try {
+      await prisma.snippet.delete({
+        where: {
+          id,
+        },
+      });
+      revalidatePath("/dashboard");
+      return { success: true };
+    } catch (error) {
+      console.log(error);
+      return { success: false, error: "Failed to create snippet" };
+    }
+  } else {
+    return { success: false, error: "Unauthorised" };
+  }
+}

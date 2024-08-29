@@ -23,7 +23,7 @@ export default function IDE({ propState }: { propState: snippetState }) {
   let slug = nanoid().substring(1, 6);
 
   useEffect(() => {
-    slug = nanoid().substring(1, 6);
+    slug = nanoid(6);
   }, []);
 
   const [state, setState] = useState({
